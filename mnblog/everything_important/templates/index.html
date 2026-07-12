@@ -1,11 +1,11 @@
+{% extends "everything_important/templates/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% block title %}{{ title }}{% endblock %}
+{#{% block style %}{% static 'css/index.css' %}{% endblock %}#}
+{% block content %}
+    <div class="main-content">
+        <img src="{% static 'images/ts-1.png' %}" alt="Taylor Swift" />
+        <img src="{% static 'images/ts-2.png' %}" alt="Taylor Swift" />
+    </div>
 
-</body>
-</html>
+{% endblock %}

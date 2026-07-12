@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{% block style %}{% endblock %}" rel="stylesheet">
+        <style>
+            .content {
+                display: flex;
+                flex-wrap: nowrap;
+
+            }
+
+            .main-content {
+                display: flex;
+                flex-wrap: nowrap;
+
+            }
+
+            .container {
+                display: flex;
+                height: 300px;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                background-color: #ffffcc;
+            }
+            img {
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                font-size: 4rem;
+            }
+            .sidebar {
+                display: flex;
+                width: 300px;
+                min-height: 100vh;
+                border: 1px solid black;
+                white-space: nowrap;
+                margin: 0;
+                overflow: auto;
+                float: left;
+            }
+
+        </style>
+        <script>
+            // Get image list from Django context
+            const images = {{ images|safe }};
+            let index = 0;
+
+            // Function to change image
+            function changeImage() {
+                index = (index + 1) % images.length; // Loop back to start
+                document.getElementById('slider').src = images[index];
+            }
+
+            // Change image every 1 second
+            setInterval(changeImage, 5000);
+
+        </script>
+    </head>
+    <body>
+        {% include 'everything_important/templates/header.html' %}
+        <div id="sidebar" class="sidebar"></div>
+        <div id="content" class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
