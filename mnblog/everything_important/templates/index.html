@@ -4,8 +4,9 @@
 {#{% block style %}{% static 'css/index.css' %}{% endblock %}#}
 {% block content %}
     <div class="main-content">
-        <img src="{% static 'images/ts-1.png' %}" alt="Taylor Swift" />
-        <img src="{% static 'images/ts-2.png' %}" alt="Taylor Swift" />
+        <section class="list">
+            {% include 'everything_important/templates/post/post_list.html' %}
+        </section>
     </div>
 
 {% endblock %}

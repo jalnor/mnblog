@@ -1,0 +1,11 @@
+{% extends 'everything_important/templates/base.html' %}
+{% load static %}
+
+{#{% block title %}{{ title }}{% endblock %}#}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="date">
+        Published on {{ post.publish }} by {{ post.author }}
+    </p>
+    {{ post.body|linebreaks }}
+{% endblock %}
