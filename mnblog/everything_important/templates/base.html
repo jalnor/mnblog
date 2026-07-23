@@ -11,13 +11,11 @@
                 flex-wrap: nowrap;
 
             }
-
             .main-content {
                 display: flex;
                 flex-wrap: nowrap;
 
             }
-
             .container {
                 display: flex;
                 height: 300px;
@@ -29,7 +27,6 @@
                 margin: 0;
                 padding: 0;
             }
-
             h1 {
                 font-size: 4rem;
             }
@@ -43,7 +40,11 @@
                 overflow: auto;
                 float: left;
             }
-
+            .list {
+                border: 1px dotted black;
+                margin: 1rem;
+                width: 50%;
+            }
         </style>
         <script>
             // Get image list from Django context
@@ -62,7 +63,7 @@
         </script>
     </head>
     <body>
-        {% include 'everything_important/templates/header.html' %}
+        {% include 'everything_important/templates/misc/header.html' %}
         <div id="sidebar" class="sidebar"></div>
         <div id="content" class="content">
             {% block content %}{% endblock %}

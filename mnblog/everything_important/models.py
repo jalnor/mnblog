@@ -6,12 +6,18 @@ from django.utils import timezone
 #TODO  Topics for menu bar
 # Education; Religion; Jobs/Careers; Health; Technology; Government #
 
+# Model manager
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
+
 # Create your models here.
 class Post(models.Model):
     class Status(models.TextChoices):
         DRAFT = 'DR', 'Draft'
         PUBLISHED = 'PB', 'Published'
         ARCHIVED = 'AR', 'Archived'
+
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
     author = models.ForeignKey(
@@ -19,7 +25,6 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         related_name='blog_posts'
     )
-    date = models.DateField()
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
@@ -29,6 +34,9 @@ class Post(models.Model):
         choices=Status.choices,
         default='DR',
     )
+
+    objects = models.Manager() # Default Manager
+    published = PublishedManager() # Custom  manager
 
     class Meta:
         ordering = ('-publish',)

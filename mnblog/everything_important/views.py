@@ -1,6 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from http.client import HTTPException
+
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, Http404
 from django.templatetags.static import static
+
+from everything_important.models import Post
+
+TEMPLATE_PATH = 'everything_important/templates/'
+
 
 # Create your views here.
 def index(request):
@@ -22,13 +29,34 @@ def index(request):
         static('images/bv-14.webp'),
         static('images/bv-15.webp'),
     ]
+    posts = Post.published.all()
+
+
     return render(
         request=request,
-        template_name='everything_important/templates/index.html',
+        template_name=TEMPLATE_PATH + 'index.html',
         context={
             'title': title,
             'images': images,
+            'posts': posts,
         },
+    )
+
+def post_detail(request, id: int):
+    try:
+        post = get_object_or_404(
+            klass=Post,
+            id=id,
+            status=Post.Status.PUBLISHED,
+        )
+    except Post.DoesNotExist:
+        raise Http404("Post does not exist")
+    return render(
+        request=request,
+        template_name=TEMPLATE_PATH + 'post/post_detail.html',
+        context={
+            'post': post,
+        }
     )
 
 
